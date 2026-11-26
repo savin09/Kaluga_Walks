@@ -242,9 +242,9 @@ SELECT
     COUNT(rv.review_id)          AS reviews_count,
     ROUND(AVG(rv.rating), 2)     AS avg_rating,
     MAX(rv.rating)               AS max_rating
-FROM routes r
-JOIN reviews rv ON rv.route_id = r.route_id
-WHERE r.route_time > 100
+FROM routes r, reviews rv
+WHERE rv.route_id = r.route_id
+  AND r.route_time > 100
 GROUP BY r.route_id, r.name
 HAVING COUNT(rv.review_id) >= 1
    AND AVG(rv.rating) >= 5
